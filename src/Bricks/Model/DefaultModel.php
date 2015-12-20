@@ -35,8 +35,6 @@ implements ModelInterface {
 	 */
 	protected $data = array();
 	
-	protected $modelName = __CLASS__;
-	
 	/**
 	 * @param array $data
 	 */
