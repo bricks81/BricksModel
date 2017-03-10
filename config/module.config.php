@@ -1,20 +1,19 @@
 <?php
 
-return array(
-	'service_manager' => array(
-		'factories' => array(
-			'BricksModel' => 'Bricks\Model\Model',			
-		),
-	),	
-	'BricksConfig' => array(
-		'__DEFAULT_NAMESPACE__' => array(
-			'BricksClassLoader' => array(
-				'BricksModel' => array(
-					'aliasMap' => array(
-						'modelClass' => 'Bricks\Model\Model',
-					),
-				),
-			),
-		),		
-	),
-);
+use Zend\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'service_manager' => [
+        'factories' => [
+            'Bricks\Model\Model' => InvokableFactory::class
+        ],
+        'initializers' => [
+            'Bricks\Model\ModelInitializer',
+        ]
+    ],
+    'controllers' => [
+        'initializers' => [
+            'Bricks\Model\ModelInitializer',
+        ]
+    ]
+];

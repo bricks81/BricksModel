@@ -27,28 +27,29 @@
 
 namespace Bricks\Model;
 
-interface ModelInterface {
-	
-	/**
-	 * @param array $data
-	 */
-	public function getData($key=null);
-	
-	/**
-	 * @return array
-	 */
-	public function setData($key,$value=null);
-	
-	/**
-	 * @param string $key
-	 * @param mixed $value
-	 */
-	public function __set($key,$value);
-	
-	/**
-	 * @param string $key
-	 * @return mixed
-	 */
-	public function __get($key);
-	
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+
+class Module implements ConfigProviderInterface, AutoloaderProviderInterface {
+
+    const VERSION = '0.1.1';
+
+    public function getConfig(){
+        return array_replace_recursive(
+            require(__DIR__.'/../config/module.config.php'),
+            require(__DIR__.'/../config/bricks.config.php')
+        );
+    }
+
+    public function getAutoloaderConfig()
+    {
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
+                    __NAMESPACE__ => __DIR__
+                ]
+            ]
+        ];
+    }
+
 }

@@ -25,12 +25,22 @@
  * THE SOFTWARE.
  */
 
-namespace BricksModel;
+namespace Bricks\Model;
 
-class Module {
-	
-	public function getConfig(){
-		return require 'config/module.config.php';
-	}
-	
+interface ModelInterface {
+
+    /**
+     * @param string $name
+     * @param string $namespace
+     * @return \Zend\Db\TableGateway\TableGatewayInterface
+     */
+    public function get($name,$namespace=null);
+
+    /**
+     * @param string $name
+     * @param string $namespace
+     * @return \Zend\Db\TableGateway\TableGatewayInterface
+     */
+    public function singleton($name,$namespace=null);
+
 }
